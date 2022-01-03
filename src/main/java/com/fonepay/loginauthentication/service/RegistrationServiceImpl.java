@@ -15,13 +15,17 @@ public class RegistrationServiceImpl implements RegistrationService  {
 
     // Saving User data from the frontend to backend
     @Override
-    public ResponseEntity<Object> saveUser(User user){
-        repo.save(user);
+    public ResponseEntity<Object> saveUser(UserDTO userDTO){
+          User user = new User();
+          user.setUserName(userDTO.getUserName());
+          user.setFirstName(userDTO.getFirstName());
+          user.setLastName(userDTO.getLastName());
+          user.setAddress(userDTO.getAddress());
+          user.setPassword(userDTO.getPassword());
+          user.setPhoneNo(userDTO.getPhoneNo());
+          user.setEmailId(userDTO.getEmailId());
 
-        UserDTO userDto = new UserDTO();
-        userDto.setId(user.getId());
-        userDto.setEmailId(user.getEmailId());
-        userDto.setUserName(user.getUserName());
-        return new ResponseEntity<>(userDto, HttpStatus.OK);
+          repo.save(user);
+          return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 }

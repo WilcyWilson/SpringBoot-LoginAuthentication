@@ -1,7 +1,7 @@
 package com.fonepay.loginauthentication.controller;
 
 import com.fonepay.loginauthentication.constants.PathConstants;
-import com.fonepay.loginauthentication.entity.User;
+import com.fonepay.loginauthentication.dto.UserDTO;
 import com.fonepay.loginauthentication.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping(PathConstants.SAVE_USER)
-    public ResponseEntity<Object> registerUser(@RequestBody User user){
-         return registrationService.saveUser(user);
+    public ResponseEntity<Object> registerUser(@RequestBody UserDTO userDto){
+         return registrationService.saveUser(userDto);
     }
 }

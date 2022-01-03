@@ -1,12 +1,14 @@
 package com.fonepay.loginauthentication.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UserDTO {
-    private long id;
     private String userName;
     private String emailId;
+    private String password;
+    private String lastName;
+    private String phoneNo;
+    private String address;
+    private String firstName;
 }
