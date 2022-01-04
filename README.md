@@ -14,7 +14,7 @@ Things to do
 - MySQL: Join, Query, Left, Right, Inner, Outer, Foreign Key
 
 Angular
-- Register new user (save)
+- Register new userRegister (save)
 - Login (Fetch By Username, id)
 - Join Query (foreign key)
 - SHA 256 Encryption for password
