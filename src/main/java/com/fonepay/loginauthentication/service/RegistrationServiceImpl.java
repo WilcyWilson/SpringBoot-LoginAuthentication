@@ -1,5 +1,6 @@
 package com.fonepay.loginauthentication.service;
 
+import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.dto.UserLoginDTO;
 import com.fonepay.loginauthentication.dto.UserRegisterDTO;
 import com.fonepay.loginauthentication.entity.UserLogin;
@@ -22,7 +23,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 @Service
-public class RegistrationServiceImpl implements RegistrationService  {
+public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private RegistrationRepository registrationRepository;
 
@@ -31,38 +32,60 @@ public class RegistrationServiceImpl implements RegistrationService  {
 
     // Saving User data from the frontend to backend
     @Override
-    public ResponseEntity<Object> saveUser(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-          UserRegister userRegister = new UserRegister();
-          UserLogin userLogin = new UserLogin();
-          UserLoginDTO userLoginDTO = new UserLoginDTO();
+    public ResponseEntity<ResponseDTO> saveUser(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        try {
+            UserRegister userRegister = new UserRegister();
+            UserLogin userLogin = new UserLogin();
+            ResponseDTO responseDTO = new ResponseDTO();
 
-          String input = userRegisterDTO.getPassword();
-          SecretKey key = EncryptionServiceImpl.generateKey(userRegisterDTO.getFirstName(),userRegisterDTO.getLastName());
-          IvParameterSpec ivParameterSpec = EncryptionServiceImpl.generateIv();
-          String algorithm = "AES/CBC/PKCS5Padding";
-          String cipherText = EncryptionServiceImpl.encrypt(algorithm, input, key, ivParameterSpec);
-          String plainText = EncryptionServiceImpl.decrypt(algorithm, cipherText, key, ivParameterSpec);
+            String cipherText = getCipherText(userRegisterDTO);
 
-          userRegister.setUserName(userRegisterDTO.getUserName());
-          userRegister.setFirstName(userRegisterDTO.getFirstName());
-          userRegister.setLastName(userRegisterDTO.getLastName());
-          userRegister.setAddress(userRegisterDTO.getAddress());
-          userRegister.setPassword(cipherText);
-          userRegister.setPhoneNo(userRegisterDTO.getPhoneNo());
-          userRegister.setEmailId(userRegisterDTO.getEmailId());
+            userRegister.setUserName(userRegisterDTO.getUserName());
+            userRegister.setFirstName(userRegisterDTO.getFirstName());
+            userRegister.setLastName(userRegisterDTO.getLastName());
+            userRegister.setAddress(userRegisterDTO.getAddress());
+            userRegister.setPassword(cipherText);
+            userRegister.setPhoneNo(userRegisterDTO.getPhoneNo());
+            userRegister.setEmailId(userRegisterDTO.getEmailId());
 
-          userLoginDTO.setUserName(userRegisterDTO.getUserName());
-          userLoginDTO.setEmailId(userRegisterDTO.getEmailId());
-          userLoginDTO.setPassword(cipherText);
+            userLogin.setUserName(userRegister.getUserName());
+            userLogin.setEmailId(userRegister.getEmailId());
+            userLogin.setPassword(cipherText);
+            userLogin.setUserRegister(userRegister);
 
-          userLogin.setUserName(userLoginDTO.getUserName());
-          userLogin.setEmailId(userLoginDTO.getEmailId());
-          userLogin.setPassword(cipherText);
-          userLogin.setUserRegister(userRegister);
+            registrationRepository.save(userRegister);
+            loginRepository.save(userLogin);
 
-          registrationRepository.save(userRegister);
-          loginRepository.save(userLogin);
+            responseDTO.setResponseStatus(true);
+            responseDTO.setResponseMessage("Successful Registration");
 
-          return new ResponseEntity<>(userRegisterDTO, HttpStatus.OK);
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+
+        } catch (Exception e) {
+            ResponseDTO responseDTO = new ResponseDTO();
+            responseDTO.setResponseStatus(false);
+            responseDTO.setResponseMessage("Unsuccessful Registration  " + e.getMessage());
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        }
     }
+
+    @Override
+    public String getCipherText(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        String input = userRegisterDTO.getPassword();
+        SecretKey key = EncryptionServiceImpl.generateKey(userRegisterDTO.getEmailId(), userRegisterDTO.getUserName());
+        IvParameterSpec ivParameterSpec = EncryptionServiceImpl.generateIv();
+        String algorithm = "AES/CBC/PKCS5Padding";
+        String cipherText = EncryptionServiceImpl.encrypt(algorithm, input, key, ivParameterSpec);
+        return cipherText;
+    }
+
+    @Override
+    public String getPlainText(UserLoginDTO userLoginDTO, String cipherText) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        SecretKey key = EncryptionServiceImpl.generateKey(userLoginDTO.getEmailId(), userLoginDTO.getUserName());
+        IvParameterSpec ivParameterSpec = EncryptionServiceImpl.generateIv();
+        String algorithm = "AES/CBC/PKCS5Padding";
+        String plainText = EncryptionServiceImpl.decrypt(algorithm, cipherText, key, ivParameterSpec);
+        return plainText;
+    }
+
 }

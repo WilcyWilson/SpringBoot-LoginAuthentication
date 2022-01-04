@@ -18,7 +18,7 @@ public class UserRegister {
     @Column(name = "registration_emailid")
     private String emailId;
 
-    @Column(name = "registration_username")
+    @Column(name = "registration_username", unique=true)
     private String userName;
 
     @Column(name = "registration_password")

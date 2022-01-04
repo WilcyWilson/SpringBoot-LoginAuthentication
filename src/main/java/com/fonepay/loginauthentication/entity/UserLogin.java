@@ -22,7 +22,7 @@ public class UserLogin {
     @Column(name = "login_emailid")
     private String emailId;
 
-    @Column(name = "login_username")
+    @Column(name = "login_username" , unique=true)
     private String userName;
 
     @Column(name = "login_password")

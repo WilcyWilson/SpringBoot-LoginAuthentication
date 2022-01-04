@@ -1,6 +1,9 @@
 package com.fonepay.loginauthentication.service;
 
+import com.fonepay.loginauthentication.dto.ResponseDTO;
+import com.fonepay.loginauthentication.dto.UserLoginDTO;
 import com.fonepay.loginauthentication.dto.UserRegisterDTO;
+import com.fonepay.loginauthentication.entity.UserLogin;
 import org.springframework.http.ResponseEntity;
 
 import javax.crypto.BadPaddingException;
@@ -12,5 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 public interface RegistrationService {
-    ResponseEntity<Object> saveUser(UserRegisterDTO userDto) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException;
+    ResponseEntity<ResponseDTO> saveUser(UserRegisterDTO userDto) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException;
+    String getCipherText(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException, InvalidKeySpecException,  NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
+    String getPlainText(UserLoginDTO userLogin, String input) throws NoSuchAlgorithmException, InvalidKeySpecException,  NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
 }
