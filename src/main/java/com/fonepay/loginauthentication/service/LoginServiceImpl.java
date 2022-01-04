@@ -2,6 +2,7 @@ package com.fonepay.loginauthentication.service;
 
 import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.dto.UserLoginDTO;
+import com.fonepay.loginauthentication.dto.UserRegisterDTO;
 import com.fonepay.loginauthentication.entity.UserLogin;
 import com.fonepay.loginauthentication.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,21 +34,18 @@ public class LoginServiceImpl implements LoginService{
     public ResponseEntity<ResponseDTO> checkUser(UserLoginDTO userLoginDTO) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
         if(userLoginDTO.getUserName()!=null || !userLoginDTO.getUserName().isEmpty()){
             UserLogin userLogin=loginRepository.findByUserName(userLoginDTO.getUserName());
-
-            SecretKey key = EncryptionServiceImpl.generateKey(userLogin.getEmailId(), userLogin.getUserName());
-            IvParameterSpec ivParameterSpec = EncryptionServiceImpl.generateIv();
-            String algorithm = "AES/CBC/PKCS5Padding";
-            String plainText = EncryptionServiceImpl.decrypt(algorithm, userLogin.getPassword(), key, ivParameterSpec);
-
-            if(plainText.equals(userLoginDTO.getPassword())){
-                responseDTO.setResponseStatus(true);
-                responseDTO.setResponseMessage("Username and password Correct. Login Successful");
-
-            }else{
+            if(userLogin != null) {
+                if (EncryptionService.decrypt(userLogin.getPassword(),userLogin.getUserName()).equals(userLoginDTO.getPassword())) {
+                    responseDTO.setResponseStatus(true);
+                    responseDTO.setResponseMessage("Username and password Correct. Login Successful");
+                } else {
+                    responseDTO.setResponseStatus(false);
+                    responseDTO.setResponseMessage("Username or password Incorrect");
+                }
+            } else {
                 responseDTO.setResponseStatus(false);
-                responseDTO.setResponseMessage("Username or password Incorrect");
+                responseDTO.setResponseMessage("Username not found");
             }
-
         }else{
             responseDTO.setResponseStatus(false);
             responseDTO.setResponseMessage("Username is empty or null");

@@ -38,19 +38,17 @@ public class RegistrationServiceImpl implements RegistrationService {
             UserLogin userLogin = new UserLogin();
             ResponseDTO responseDTO = new ResponseDTO();
 
-            String cipherText = getCipherText(userRegisterDTO);
-
             userRegister.setUserName(userRegisterDTO.getUserName());
             userRegister.setFirstName(userRegisterDTO.getFirstName());
             userRegister.setLastName(userRegisterDTO.getLastName());
             userRegister.setAddress(userRegisterDTO.getAddress());
-            userRegister.setPassword(cipherText);
+            userRegister.setPassword(EncryptionService.encrypt(userRegisterDTO.getPassword(),userRegisterDTO.getUserName()));
             userRegister.setPhoneNo(userRegisterDTO.getPhoneNo());
             userRegister.setEmailId(userRegisterDTO.getEmailId());
 
             userLogin.setUserName(userRegister.getUserName());
             userLogin.setEmailId(userRegister.getEmailId());
-            userLogin.setPassword(cipherText);
+            userLogin.setPassword(userRegister.getPassword());
             userLogin.setUserRegister(userRegister);
 
             registrationRepository.save(userRegister);
@@ -67,25 +65,6 @@ public class RegistrationServiceImpl implements RegistrationService {
             responseDTO.setResponseMessage("Unsuccessful Registration  " + e.getMessage());
             return new ResponseEntity<>(responseDTO, HttpStatus.OK);
         }
-    }
-
-    @Override
-    public String getCipherText(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        String input = userRegisterDTO.getPassword();
-        SecretKey key = EncryptionServiceImpl.generateKey(userRegisterDTO.getEmailId(), userRegisterDTO.getUserName());
-        IvParameterSpec ivParameterSpec = EncryptionServiceImpl.generateIv();
-        String algorithm = "AES/CBC/PKCS5Padding";
-        String cipherText = EncryptionServiceImpl.encrypt(algorithm, input, key, ivParameterSpec);
-        return cipherText;
-    }
-
-    @Override
-    public String getPlainText(UserLoginDTO userLoginDTO, String cipherText) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        SecretKey key = EncryptionServiceImpl.generateKey(userLoginDTO.getEmailId(), userLoginDTO.getUserName());
-        IvParameterSpec ivParameterSpec = EncryptionServiceImpl.generateIv();
-        String algorithm = "AES/CBC/PKCS5Padding";
-        String plainText = EncryptionServiceImpl.decrypt(algorithm, cipherText, key, ivParameterSpec);
-        return plainText;
     }
 
 }

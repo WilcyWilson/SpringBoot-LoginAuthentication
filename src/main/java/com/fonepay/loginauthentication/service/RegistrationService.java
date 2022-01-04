@@ -16,6 +16,4 @@ import java.security.spec.InvalidKeySpecException;
 
 public interface RegistrationService {
     ResponseEntity<ResponseDTO> saveUser(UserRegisterDTO userDto) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException;
-    String getCipherText(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException, InvalidKeySpecException,  NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
-    String getPlainText(UserLoginDTO userLogin, String input) throws NoSuchAlgorithmException, InvalidKeySpecException,  NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
 }
