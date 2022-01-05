@@ -1,7 +1,6 @@
 package com.fonepay.loginauthentication.service;
 
 import com.fonepay.loginauthentication.dto.ResponseDTO;
-import com.fonepay.loginauthentication.dto.UserLoginDTO;
 import com.fonepay.loginauthentication.dto.UserRegisterDTO;
 import com.fonepay.loginauthentication.entity.UserLogin;
 import com.fonepay.loginauthentication.entity.UserRegister;
@@ -15,8 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -45,10 +42,13 @@ public class RegistrationServiceImpl implements RegistrationService {
             userRegister.setPassword(EncryptionService.encrypt(userRegisterDTO.getPassword(),userRegisterDTO.getUserName()));
             userRegister.setPhoneNo(userRegisterDTO.getPhoneNo());
             userRegister.setEmailId(userRegisterDTO.getEmailId());
+            userRegister.setCreatedDate(java.time.LocalDateTime.now().toString());
 
             userLogin.setUserName(userRegister.getUserName());
             userLogin.setEmailId(userRegister.getEmailId());
             userLogin.setPassword(userRegister.getPassword());
+            userLogin.setCreatedBy(userRegister.getUserName());
+            userLogin.setStatus(false);
             userLogin.setUserRegister(userRegister);
 
             registrationRepository.save(userRegister);

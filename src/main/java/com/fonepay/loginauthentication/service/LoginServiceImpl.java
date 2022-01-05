@@ -2,11 +2,9 @@ package com.fonepay.loginauthentication.service;
 
 import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.dto.UserLoginDTO;
-import com.fonepay.loginauthentication.dto.UserRegisterDTO;
 import com.fonepay.loginauthentication.entity.UserLogin;
 import com.fonepay.loginauthentication.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,8 +12,6 @@ import org.springframework.stereotype.Service;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -26,9 +22,6 @@ public class LoginServiceImpl implements LoginService{
     @Autowired
     private LoginRepository loginRepository;
 
-    @Autowired
-    private RegistrationService registrationService;
-
     private ResponseDTO responseDTO = new ResponseDTO();
 
     public ResponseEntity<ResponseDTO> checkUser(UserLoginDTO userLoginDTO) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
@@ -37,7 +30,7 @@ public class LoginServiceImpl implements LoginService{
             if(userLogin != null) {
                 if (EncryptionService.decrypt(userLogin.getPassword(),userLogin.getUserName()).equals(userLoginDTO.getPassword())) {
                     responseDTO.setResponseStatus(true);
-                    responseDTO.setResponseMessage("Username and password Correct. Login Successful");
+                    responseDTO.setResponseMessage("Username and password Correct. Login Successful. Welcome Kale Dai.");
                 } else {
                     responseDTO.setResponseStatus(false);
                     responseDTO.setResponseMessage("Username or password Incorrect");

@@ -1,9 +1,7 @@
 package com.fonepay.loginauthentication.service;
 
 import com.fonepay.loginauthentication.dto.ResponseDTO;
-import com.fonepay.loginauthentication.dto.UserLoginDTO;
 import com.fonepay.loginauthentication.dto.UserRegisterDTO;
-import com.fonepay.loginauthentication.entity.UserLogin;
 import org.springframework.http.ResponseEntity;
 
 import javax.crypto.BadPaddingException;

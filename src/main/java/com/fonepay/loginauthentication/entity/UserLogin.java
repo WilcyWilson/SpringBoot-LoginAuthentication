@@ -27,4 +27,10 @@ public class UserLogin {
 
     @Column(name = "login_password")
     private String password;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "status")
+    private Boolean status;
 }

@@ -36,6 +36,9 @@ public class UserRegister {
     @Column(name = "registration_address")
     private String address;
 
+    @Column(name = "created_date")
+    private String createdDate;
+
     @OneToOne(mappedBy = "userRegister")
     private UserLogin userLogin;
 }
