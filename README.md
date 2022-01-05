@@ -22,3 +22,14 @@ Angular
 - Edit information then audit log, Future Table
 - Add Flag to true or false for Maker/Checker Concept
 
+Concepts and Definition
+
+- Checker Maker
+We use approval and destination user and change the status if destination user exists.
+
+- Edit User
+We just edit fixed set of non important field and update the field.
+
+- Audit Log
+Saving previous data
+
