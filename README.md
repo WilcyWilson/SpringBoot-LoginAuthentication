@@ -33,3 +33,8 @@ We just edit fixed set of non important field and update the field.
 - Audit Log
 Saving previous data
 
+- Meta Table
+Saving configuration data, constants for easy change without restarting the server
+
+- application.properties constants
+No change without restarting the server, @Value
