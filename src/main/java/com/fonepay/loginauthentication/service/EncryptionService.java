@@ -1,5 +1,11 @@
 package com.fonepay.loginauthentication.service;
 
+import com.fonepay.loginauthentication.constants.MetaTableConstants;
+import com.fonepay.loginauthentication.entity.MetaTable;
+import com.fonepay.loginauthentication.repository.MetaTableRepo;
+import com.fonepay.loginauthentication.service.impl.MetaTableServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
@@ -10,6 +16,13 @@ import java.util.Arrays;
 import java.util.Base64;
 
 public class EncryptionService {
+
+    @Autowired
+    MetaTableServiceImpl metaTableService;
+
+    @Autowired
+    MetaTableRepo metaTableRepo;
+
     private static SecretKeySpec secretKey;
     private static byte[] key;
 
@@ -35,6 +48,8 @@ public class EncryptionService {
     {
         try
         {
+
+
             setKey(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);

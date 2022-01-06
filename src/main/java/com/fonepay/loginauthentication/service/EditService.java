@@ -6,4 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface EditService {
     ResponseEntity<ResponseDTO> editUser(EditDTO editDTO);
+
 }

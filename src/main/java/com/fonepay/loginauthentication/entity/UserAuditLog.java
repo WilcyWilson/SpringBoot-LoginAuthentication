@@ -34,4 +34,7 @@ public class UserAuditLog {
 
     @Column(name = "changed_date")
     private String changedDate;
+
+    @Column(name = "registration_audit_id")
+    private Long registrationAuditId;
 }

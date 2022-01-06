@@ -1,9 +1,10 @@
-package com.fonepay.loginauthentication.service;
+package com.fonepay.loginauthentication.service.impl;
 
 import com.fonepay.loginauthentication.dto.ApprovalDTO;
 import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.entity.UserLogin;
 import com.fonepay.loginauthentication.repository.LoginRepository;
+import com.fonepay.loginauthentication.service.ApprovalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

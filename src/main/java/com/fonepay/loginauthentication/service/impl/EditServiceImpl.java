@@ -1,4 +1,4 @@
-package com.fonepay.loginauthentication.service;
+package com.fonepay.loginauthentication.service.impl;
 
 import com.fonepay.loginauthentication.dto.EditDTO;
 import com.fonepay.loginauthentication.dto.ResponseDTO;
@@ -8,6 +8,7 @@ import com.fonepay.loginauthentication.entity.UserRegister;
 import com.fonepay.loginauthentication.repository.AuditLogRepository;
 import com.fonepay.loginauthentication.repository.LoginRepository;
 import com.fonepay.loginauthentication.repository.RegistrationRepository;
+import com.fonepay.loginauthentication.service.EditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,7 @@ public class EditServiceImpl implements EditService {
                 userAuditLog.setAddress(userRegister.getAddress());
                 userAuditLog.setPhoneNo(userRegister.getPhoneNo());
                 userAuditLog.setChangedDate(java.time.LocalDateTime.now().toString());
+                userAuditLog.setRegistrationAuditId(userRegister.getId());
 
                 userRegister.setCreatedDate(java.time.LocalDateTime.now().toString());
                 userRegister.setFirstName(editDTO.getFirstName());

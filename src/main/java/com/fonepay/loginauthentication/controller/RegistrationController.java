@@ -1,13 +1,14 @@
 package com.fonepay.loginauthentication.controller;
 
+import com.fonepay.loginauthentication.constants.MetaTableConstants;
 import com.fonepay.loginauthentication.constants.PathConstants;
 import com.fonepay.loginauthentication.dto.*;
-import com.fonepay.loginauthentication.service.ApprovalService;
-import com.fonepay.loginauthentication.service.EditService;
-import com.fonepay.loginauthentication.service.LoginService;
-import com.fonepay.loginauthentication.service.RegistrationService;
+import com.fonepay.loginauthentication.service.*;
+import com.fonepay.loginauthentication.service.impl.MetaTableServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,9 @@ public class RegistrationController {
     @Autowired
     private EditService editService;
 
+    @Autowired
+    MetaTableServiceImpl metaTableService;
+
     @PostMapping(PathConstants.SAVE_USER)
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserRegisterDTO userDto) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
 
@@ -53,5 +57,11 @@ public class RegistrationController {
     @PostMapping(PathConstants.EDIT_USER)
     public ResponseEntity<ResponseDTO> editUser(@RequestBody EditDTO editDTO) {
         return editService.editUser(editDTO);
+    }
+
+    @GetMapping("metaTable")
+    public ResponseEntity<Object> metaTable() throws Exception {
+       String value = metaTableService.metaTableVale(MetaTableConstants.BREAKING_NEWS_YOUTUBE_URL.getName());
+       return new ResponseEntity<>(value, HttpStatus.OK);
     }
 }
