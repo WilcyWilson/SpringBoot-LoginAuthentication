@@ -25,16 +25,21 @@ Angular
 Concepts and Definition
 
 - Checker Maker
+
 We use approval and destination user and change the status if destination user exists.
 
 - Edit User
+
 We just edit fixed set of non important field and update the field.
 
 - Audit Log
+
 Saving previous data
 
 - Meta Table
+
 Saving configuration data, constants for easy change without restarting the server
 
 - application.properties constants
+
 No change without restarting the server, @Value
