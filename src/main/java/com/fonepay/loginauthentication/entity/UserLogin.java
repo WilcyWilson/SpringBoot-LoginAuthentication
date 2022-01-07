@@ -8,29 +8,29 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "login_table")
+@Table(name = "LOGIN_TABLE")
 public class UserLogin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "login_id")
+    @Column(name = "LOGIN_ID")
     private long id;
 
     @OneToOne
-    @JoinColumn(name = "registration_id", referencedColumnName = "registration_id")
+    @JoinColumn(name = "REGISTRATION_ID", referencedColumnName = "REGISTRATION_ID")
     private UserRegister userRegister;
 
-    @Column(name = "login_emailid")
+    @Column(name = "LOGIN_EMAILID")
     private String emailId;
 
-    @Column(name = "login_username" , unique=true)
+    @Column(name = "LOGIN_USERNAME" , unique=true)
     private String userName;
 
-    @Column(name = "login_password")
+    @Column(name = "LOGIN_PASSWORD")
     private String password;
 
-    @Column(name = "created_by")
+    @Column(name = "CREATED_BY")
     private String createdBy;
 
-    @Column(name = "status")
+    @Column(name = "STATUS")
     private Boolean status;
 }

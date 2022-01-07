@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MetaTableRepo extends JpaRepository<MetaTable, Long> {
-    @Query(value = "SELECT * FROM META_TABLE mt WHERE mt.NAME = :name AND mt.IS_ENABLED IS TRUE", nativeQuery = true) //native query
+    @Query(value = "SELECT * FROM meta_table mt WHERE mt.NAME = :name AND mt.IS_ENABLED IS TRUE", nativeQuery = true) //native query
     MetaTable getMetaTableByValue(String name);
 }

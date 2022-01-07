@@ -3,7 +3,7 @@ package com.fonepay.loginauthentication.service.impl;
 import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.dto.UserLoginDTO;
 import com.fonepay.loginauthentication.entity.UserLogin;
-import com.fonepay.loginauthentication.repository.LoginRepository;
+import com.fonepay.loginauthentication.repository.LoginRepo;
 import com.fonepay.loginauthentication.service.EncryptionService;
 import com.fonepay.loginauthentication.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,10 @@ import java.security.spec.InvalidKeySpecException;
 @Service
 public class LoginServiceImpl implements LoginService {
     @Autowired
-    private LoginRepository loginRepository;
+    private LoginRepo loginRepository;
+
+    @Autowired
+    private EncryptionService encryptionService;
 
     private ResponseDTO responseDTO = new ResponseDTO();
 
@@ -30,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
         if(userLoginDTO.getUserName()!=null || !userLoginDTO.getUserName().isEmpty()){
             UserLogin userLogin=loginRepository.findByUserName(userLoginDTO.getUserName());
             if(userLogin != null) {
-                if (EncryptionService.decrypt(userLogin.getPassword(),userLogin.getUserName()).equals(userLoginDTO.getPassword())) {
+                if (encryptionService.decrypt(userLogin.getPassword(),userLogin.getUserName()).equals(userLoginDTO.getPassword())) {
                     responseDTO.setResponseStatus(true);
                     responseDTO.setResponseMessage("Username and password Correct. Login Successful. Welcome Kale Dai.");
                 } else {

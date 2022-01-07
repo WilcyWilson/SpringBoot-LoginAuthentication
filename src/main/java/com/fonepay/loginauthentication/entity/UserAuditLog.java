@@ -9,32 +9,32 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "auditlog_table")
+@Table(name = "AUDITLOG_TABLE")
 public class UserAuditLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "auditlog_id")
+    @Column(name = "AUDITLOG_ID")
     private long id;
 
-    @Column(name = "auditlog_firstname")
+    @Column(name = "AUDITLOG_FIRSTNAME")
     private String firstName;
 
-    @Column(name = "auditlog_phoneno")
+    @Column(name = "AUDITLOG_PHONENO")
     private String phoneNo;
 
-    @Column(name = "auditlog_lastname")
+    @Column(name = "AUDITLOG_LASTNAME")
     private String lastName;
 
-    @Column(name = "auditlog_address")
+    @Column(name = "AUDITLOG_ADDRESS")
     private String address;
 
-    @Column(name = "changed_by")
+    @Column(name = "CHANGED_BY")
     private String changedBy;
 
-    @Column(name = "changed_date")
+    @Column(name = "CHANGED_DATA")
     private String changedDate;
 
-    @Column(name = "registration_audit_id")
+    @Column(name = "REGISTRATION_AUDIT_ID")
     private Long registrationAuditId;
 }

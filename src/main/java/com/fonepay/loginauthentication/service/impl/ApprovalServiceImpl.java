@@ -3,7 +3,7 @@ package com.fonepay.loginauthentication.service.impl;
 import com.fonepay.loginauthentication.dto.ApprovalDTO;
 import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.entity.UserLogin;
-import com.fonepay.loginauthentication.repository.LoginRepository;
+import com.fonepay.loginauthentication.repository.LoginRepo;
 import com.fonepay.loginauthentication.service.ApprovalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApprovalServiceImpl implements ApprovalService {
     @Autowired
-    private LoginRepository loginRepository;
+    private LoginRepo loginRepository;
 
     ResponseDTO responseDTO = new ResponseDTO();
 

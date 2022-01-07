@@ -4,8 +4,8 @@ import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.dto.UserRegisterDTO;
 import com.fonepay.loginauthentication.entity.UserLogin;
 import com.fonepay.loginauthentication.entity.UserRegister;
-import com.fonepay.loginauthentication.repository.LoginRepository;
-import com.fonepay.loginauthentication.repository.RegistrationRepository;
+import com.fonepay.loginauthentication.repository.LoginRepo;
+import com.fonepay.loginauthentication.repository.RegistrationRepo;
 import com.fonepay.loginauthentication.service.EncryptionService;
 import com.fonepay.loginauthentication.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +24,13 @@ import java.security.spec.InvalidKeySpecException;
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
-    private RegistrationRepository registrationRepository;
+    private RegistrationRepo registrationRepository;
 
     @Autowired
-    private LoginRepository loginRepository;
+    private LoginRepo loginRepository;
+
+    @Autowired
+    private EncryptionService encryptionService;
 
     // Saving User data from the frontend to backend
     @Override
@@ -41,7 +44,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             userRegister.setFirstName(userRegisterDTO.getFirstName());
             userRegister.setLastName(userRegisterDTO.getLastName());
             userRegister.setAddress(userRegisterDTO.getAddress());
-            userRegister.setPassword(EncryptionService.encrypt(userRegisterDTO.getPassword(),userRegisterDTO.getUserName()));
+            userRegister.setPassword(encryptionService.encrypt(userRegisterDTO.getPassword(),userRegisterDTO.getUserName()));
             userRegister.setPhoneNo(userRegisterDTO.getPhoneNo());
             userRegister.setEmailId(userRegisterDTO.getEmailId());
             userRegister.setCreatedDate(java.time.LocalDateTime.now().toString());

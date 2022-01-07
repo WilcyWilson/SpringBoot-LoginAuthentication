@@ -12,31 +12,31 @@ import javax.persistence.*;
 public class UserRegister {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "registration_id")
+    @Column(name = "REGISTRATION_ID")
     private long id;
 
-    @Column(name = "registration_emailid")
+    @Column(name = "REGISTRATION_EMAILID")
     private String emailId;
 
-    @Column(name = "registration_username", unique=true)
+    @Column(name = "REGISTRATION_USERNAME", unique=true)
     private String userName;
 
-    @Column(name = "registration_password")
+    @Column(name = "REGISTRATION_PASSWORD")
     private String password;
 
-    @Column(name = "registration_firstname")
+    @Column(name = "REGISTRATION_FIRSTNAME")
     private String firstName;
 
-    @Column(name = "registration_phoneno")
+    @Column(name = "REGISTRATION_PHONENO")
     private String phoneNo;
 
-    @Column(name = "registration_lastname")
+    @Column(name = "REGISTRATION_LASTNAME")
     private String lastName;
 
-    @Column(name = "registration_address")
+    @Column(name = "REGISTRATION_ADDRESS")
     private String address;
 
-    @Column(name = "created_date")
+    @Column(name = "CREATED_DATE")
     private String createdDate;
 
     @OneToOne(mappedBy = "userRegister")

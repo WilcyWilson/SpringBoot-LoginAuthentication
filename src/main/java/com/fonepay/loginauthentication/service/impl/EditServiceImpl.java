@@ -5,9 +5,9 @@ import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.entity.UserAuditLog;
 import com.fonepay.loginauthentication.entity.UserLogin;
 import com.fonepay.loginauthentication.entity.UserRegister;
-import com.fonepay.loginauthentication.repository.AuditLogRepository;
-import com.fonepay.loginauthentication.repository.LoginRepository;
-import com.fonepay.loginauthentication.repository.RegistrationRepository;
+import com.fonepay.loginauthentication.repository.AuditLogRepo;
+import com.fonepay.loginauthentication.repository.LoginRepo;
+import com.fonepay.loginauthentication.repository.RegistrationRepo;
 import com.fonepay.loginauthentication.service.EditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +18,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class EditServiceImpl implements EditService {
     @Autowired
-    private LoginRepository loginRepository;
+    private LoginRepo loginRepository;
 
     @Autowired
-    private RegistrationRepository registrationRepository;
+    private RegistrationRepo registrationRepository;
 
     @Autowired
-    private AuditLogRepository auditLogRepository;
+    private AuditLogRepo auditLogRepository;
 
     ResponseDTO responseDTO = new ResponseDTO();
 

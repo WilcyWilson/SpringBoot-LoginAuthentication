@@ -23,6 +23,7 @@ public class MetaTableServiceImpl implements MetaTableService {
             MetaTable metaTable = metaTableRepo.getMetaTableByValue(name);
             log.info("Meta Table Response: " + metaTable.getValue());
             if (metaTable == null) {
+                log.error("Meta table data null ayo hai");
                 throw new Exception("Meta Table Exception: " + "meta table with name cannot be found.");
             } else {
                 String value = metaTable.getValue();
