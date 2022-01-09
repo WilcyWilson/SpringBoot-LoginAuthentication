@@ -36,7 +36,10 @@ public class RegistrationController {
     private EditService editService;
 
     @Autowired
-    MetaTableServiceImpl metaTableService;
+    private MetaTableService metaTableService;
+
+    @Autowired
+    private PropertiesService propertiesService;
 
     @PostMapping(PathConstants.SAVE_USER)
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserRegisterDTO userDto) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
@@ -59,9 +62,15 @@ public class RegistrationController {
         return editService.editUser(editDTO);
     }
 
-    @GetMapping("metaTable")
+    @GetMapping(PathConstants.META_TABLE)
     public ResponseEntity<Object> metaTable() throws Exception {
        String value = metaTableService.metaTableVale(MetaTableConstants.BREAKING_NEWS_YOUTUBE_URL.getName());
        return new ResponseEntity<>(value, HttpStatus.OK);
     }
+
+    @GetMapping(PathConstants.PROPERTIES_DEMO)
+    public ResponseEntity<Object> appProperties(){
+        return propertiesService.propertiesFileDemo();
+    }
+
 }
