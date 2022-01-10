@@ -31,10 +31,10 @@ public class MetaApprovalServiceImpl implements MetaApprovalService {
                     MetaTable checkName = metaTableRepo.findByName(metaApprovalDTO.getName());
                     if (checkName != null) {
                         if (!checkName.getCreatedBy().equals(metaApprovalDTO.getApprover())) {
-                            if(checkName.getValue().equals("false")){
+                            if(!checkName.getIsEnabled()){
                                 checkName.setApprovedDate(java.time.LocalDateTime.now().toString());
                                 checkName.setApprovedBy(metaApprovalDTO.getApprover());
-                                checkName.setValue("true");
+                                checkName.setIsEnabled(true);
 
                                 metaTableRepo.save(checkName);
 
@@ -63,8 +63,8 @@ public class MetaApprovalServiceImpl implements MetaApprovalService {
         } catch (Exception e) {
             responseDTO.setResponseStatus(false);
             responseDTO.setResponseMessage("Unsuccessful Activation " + e.getMessage());
-        } finally {
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
         }
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        
     }
 }

@@ -45,6 +45,9 @@ public class RegistrationController {
     @Autowired
     private MetaApprovalService metaApprovalService;
 
+    @Autowired
+    private EditMetaTableService editMetaTableService;
+
     @PostMapping(PathConstants.SAVE_USER)
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserRegisterDTO userDto) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
 
@@ -72,8 +75,13 @@ public class RegistrationController {
     }
 
     @PostMapping(PathConstants.CHECK_META)
-    public ResponseEntity<ResponseDTO> metaTable(@RequestBody MetaApprovalDTO metaApprovalDTO) {
+    public ResponseEntity<ResponseDTO> checkMeta(@RequestBody MetaApprovalDTO metaApprovalDTO) {
         return metaApprovalService.checkMeta(metaApprovalDTO);
+    }
+
+    @PostMapping(PathConstants.EDIT_META)
+    public ResponseEntity<ResponseDTO> editMeta(@RequestBody EditMetaTableDTO editMetaTableDTO) {
+        return editMetaTableService.editMeta(editMetaTableDTO);
     }
 
 //    @PostConstruct

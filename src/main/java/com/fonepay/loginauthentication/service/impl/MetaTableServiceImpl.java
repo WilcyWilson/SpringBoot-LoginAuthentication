@@ -41,9 +41,12 @@ public class MetaTableServiceImpl implements MetaTableService {
                         metaTable.setDescription(metaTableDTO.getDescription());
                         metaTable.setCreatedBy(metaTableDTO.getUserName());
                         metaTable.setCreatedDate(java.time.LocalDateTime.now().toString());
-                        metaTable.setValue("false");
+                        metaTable.setValue(metaTableDTO.getValue());
+                        metaTable.setIsEnabled(false);
                         metaTable.setApprovedBy("empty");
                         metaTable.setApprovedDate("empty");
+                        metaTable.setEditedBy("empty");
+                        metaTable.setEditedDate("empty");
 
                         metaTableRepo.save(metaTable);
 
@@ -64,9 +67,8 @@ public class MetaTableServiceImpl implements MetaTableService {
         } catch (Exception e) {
             responseDTO.setResponseStatus(false);
             responseDTO.setResponseMessage("Unsuccessful Insertion " + e.getMessage());
-        } finally {
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
         }
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
 

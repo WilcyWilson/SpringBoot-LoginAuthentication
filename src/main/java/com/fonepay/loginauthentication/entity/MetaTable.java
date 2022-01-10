@@ -23,6 +23,9 @@ public class MetaTable {
     @Column(name = "VALUE")
     private String value;
 
+    @Column(name = "IS_ENABLED")
+    private Boolean isEnabled;
+
     @Column(name = "CREATED_DATE")
     private String createdDate;
 
@@ -34,4 +37,10 @@ public class MetaTable {
 
     @Column(name = "APPROVED_DATE")
     private String approvedDate;
+
+    @Column(name = "EDITED_BY")
+    private String editedBy;
+
+    @Column(name = "EDITED_DATE")
+    private String editedDate;
 }
