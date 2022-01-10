@@ -14,14 +14,24 @@ public class MetaTable {
     @Column(name = "ID")
     private long id;
 
-    @Column(name = "NAME" , unique=true)
+    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "VALUE" , unique=true)
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Column(name = "VALUE")
     private String value;
 
-    @Column(name = "IS_ENABLED")
-    private Boolean isEnabled;
+    @Column(name = "CREATED_DATE")
+    private String createdDate;
 
+    @Column(name = "CREATED_BY")
+    private String createdBy;
 
+    @Column(name = "APPROVED_BY")
+    private String approvedBy;
+
+    @Column(name = "APPROVED_DATE")
+    private String approvedDate;
 }

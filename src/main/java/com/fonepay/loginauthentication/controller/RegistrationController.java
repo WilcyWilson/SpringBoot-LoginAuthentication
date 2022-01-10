@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
@@ -41,6 +42,9 @@ public class RegistrationController {
     @Autowired
     private PropertiesService propertiesService;
 
+    @Autowired
+    private MetaApprovalService metaApprovalService;
+
     @PostMapping(PathConstants.SAVE_USER)
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserRegisterDTO userDto) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
 
@@ -62,15 +66,19 @@ public class RegistrationController {
         return editService.editUser(editDTO);
     }
 
-    @GetMapping(PathConstants.META_TABLE)
-    public ResponseEntity<Object> metaTable() throws Exception {
-       String value = metaTableService.metaTableVale(MetaTableConstants.BREAKING_NEWS_YOUTUBE_URL.getName());
-       return new ResponseEntity<>(value, HttpStatus.OK);
+    @PostMapping(PathConstants.META_TABLE)
+    public ResponseEntity<ResponseDTO> metaTable(@RequestBody MetaTableDTO metaTableDTO) {
+         return metaTableService.insertMeta(metaTableDTO);
     }
 
+    @PostMapping(PathConstants.CHECK_META)
+    public ResponseEntity<ResponseDTO> metaTable(@RequestBody MetaApprovalDTO metaApprovalDTO) {
+        return metaApprovalService.checkMeta(metaApprovalDTO);
+    }
+
+//    @PostConstruct
     @GetMapping(PathConstants.PROPERTIES_DEMO)
     public ResponseEntity<Object> appProperties(){
         return propertiesService.propertiesFileDemo();
     }
-
 }

@@ -32,13 +32,14 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private EncryptionService encryptionService;
 
+    ResponseDTO responseDTO = new ResponseDTO();
+
     // Saving User data from the frontend to backend
     @Override
     public ResponseEntity<ResponseDTO> saveUser(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         try {
             UserRegister userRegister = new UserRegister();
             UserLogin userLogin = new UserLogin();
-            ResponseDTO responseDTO = new ResponseDTO();
 
             userRegister.setUserName(userRegisterDTO.getUserName());
             userRegister.setFirstName(userRegisterDTO.getFirstName());
@@ -61,13 +62,10 @@ public class RegistrationServiceImpl implements RegistrationService {
 
             responseDTO.setResponseStatus(true);
             responseDTO.setResponseMessage("Successful Registration");
-
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
-
         } catch (Exception e) {
-            ResponseDTO responseDTO = new ResponseDTO();
             responseDTO.setResponseStatus(false);
             responseDTO.setResponseMessage("Unsuccessful Registration  " + e.getMessage());
+        } finally{
             return new ResponseEntity<>(responseDTO, HttpStatus.OK);
         }
     }
