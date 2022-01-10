@@ -43,3 +43,7 @@ Saving configuration data, constants for easy change without restarting the serv
 - application.properties constants
 
 No change without restarting the server, @Value
+
+- Password Validation
+
+Using Meta Table, changing password constraints on the fly without restarting the server
