@@ -1,6 +1,5 @@
 package com.fonepay.loginauthentication.dto;
 
-import com.fonepay.loginauthentication.service.EncryptionService;
 import lombok.Data;
 
 @Data

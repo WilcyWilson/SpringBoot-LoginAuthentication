@@ -1,19 +1,15 @@
 package com.fonepay.loginauthentication.controller;
 
-import com.fonepay.loginauthentication.constants.MetaTableConstants;
 import com.fonepay.loginauthentication.constants.PathConstants;
 import com.fonepay.loginauthentication.dto.*;
 import com.fonepay.loginauthentication.service.*;
-import com.fonepay.loginauthentication.service.impl.MetaTableServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
@@ -51,7 +47,7 @@ public class RegistrationController {
     @PostMapping(PathConstants.SAVE_USER)
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserRegisterDTO userDto) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
 
-         return registrationService.saveUser(userDto);
+        return registrationService.saveUser(userDto);
     }
 
     @PostMapping(PathConstants.CHECK_USER)
@@ -71,7 +67,7 @@ public class RegistrationController {
 
     @PostMapping(PathConstants.META_TABLE)
     public ResponseEntity<ResponseDTO> metaTable(@RequestBody MetaTableDTO metaTableDTO) {
-         return metaTableService.insertMeta(metaTableDTO);
+        return metaTableService.insertMeta(metaTableDTO);
     }
 
     @PostMapping(PathConstants.CHECK_META)
@@ -84,9 +80,9 @@ public class RegistrationController {
         return editMetaTableService.editMeta(editMetaTableDTO);
     }
 
-//    @PostConstruct
+    //    @PostConstruct
     @GetMapping(PathConstants.PROPERTIES_DEMO)
-    public ResponseEntity<Object> appProperties(){
+    public ResponseEntity<Object> appProperties() {
         return propertiesService.propertiesFileDemo();
     }
 }

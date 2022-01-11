@@ -2,7 +2,6 @@ package com.fonepay.loginauthentication.service.impl;
 
 import com.fonepay.loginauthentication.constants.MetaTableConstants;
 import com.fonepay.loginauthentication.dto.ResponseDTO;
-import com.fonepay.loginauthentication.entity.MetaTable;
 import com.fonepay.loginauthentication.repository.MetaTableRepo;
 import com.fonepay.loginauthentication.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,13 +2,11 @@ package com.fonepay.loginauthentication.service.impl;
 
 import com.fonepay.loginauthentication.dto.MetaTableDTO;
 import com.fonepay.loginauthentication.dto.ResponseDTO;
-import com.fonepay.loginauthentication.dto.UserRegisterDTO;
 import com.fonepay.loginauthentication.entity.MetaTable;
 import com.fonepay.loginauthentication.entity.UserLogin;
 import com.fonepay.loginauthentication.repository.LoginRepo;
 import com.fonepay.loginauthentication.repository.MetaTableRepo;
 import com.fonepay.loginauthentication.service.MetaTableService;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,7 +66,7 @@ public class MetaTableServiceImpl implements MetaTableService {
             responseDTO.setResponseStatus(false);
             responseDTO.setResponseMessage("Unsuccessful Insertion " + e.getMessage());
         }
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
 
