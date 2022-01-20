@@ -42,6 +42,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public ResponseEntity<ResponseDTO> saveUser(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         try {
+            // Won't register without the metaTable data. Need to change something here or in metaTable registration
             ResponseDTO passwordResponse = passwordService.passwordMatch(userRegisterDTO.getPassword());
             if(passwordResponse.getResponseStatus()) {
                 UserRegister userRegister = new UserRegister();
