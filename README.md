@@ -47,3 +47,7 @@ No change without restarting the server, @Value
 - Password Validation
 
 Using Meta Table, changing password constraints on the fly without restarting the server
+
+- @CrossOrigin annotation
+When JSON data is coming from different port 
+say localhost:4200 of angular

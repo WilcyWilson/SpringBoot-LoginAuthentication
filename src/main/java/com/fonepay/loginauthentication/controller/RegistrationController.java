@@ -5,10 +5,7 @@ import com.fonepay.loginauthentication.dto.*;
 import com.fonepay.loginauthentication.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -51,6 +48,7 @@ public class RegistrationController {
     }
 
     @PostMapping(PathConstants.CHECK_USER)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<ResponseDTO> checkUser(@RequestBody UserLoginDTO userLoginDTO) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
         return loginService.checkUser(userLoginDTO);
     }
