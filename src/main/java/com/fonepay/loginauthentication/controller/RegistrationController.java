@@ -49,6 +49,7 @@ public class RegistrationController {
 
     @PostMapping(PathConstants.CHECK_USER)
     @CrossOrigin(origins = "http://localhost:4200")
+    // Another way by using server side proxy in frontend
     public ResponseEntity<ResponseDTO> checkUser(@RequestBody UserLoginDTO userLoginDTO) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
         return loginService.checkUser(userLoginDTO);
     }
