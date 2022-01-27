@@ -1,5 +1,6 @@
 package com.fonepay.loginauthentication.service.impl;
 
+import com.fonepay.loginauthentication.dto.GetDataDTO;
 import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.dto.UserLoginDTO;
 import com.fonepay.loginauthentication.entity.UserLogin;
@@ -18,6 +19,8 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -51,5 +54,27 @@ public class LoginServiceImpl implements LoginService {
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
+    public ResponseEntity<Object> getData(){
+        if(loginRepository.findAll()!=null){
+            List<GetDataDTO> getDataDTOList = new ArrayList<>();
+            List<UserLogin> userLoginList = loginRepository.findAll();
+            for (UserLogin user: userLoginList){
+                    GetDataDTO getDataDTO = new GetDataDTO();
 
+                    getDataDTO.setUserName(user.getUserName());
+                    getDataDTO.setEmailId(user.getEmailId());
+                    getDataDTO.setId(user.getId());
+                    getDataDTO.setStatus(user.getStatus());
+                    getDataDTO.setCreatedBy(user.getCreatedBy());
+
+                    getDataDTOList.add(getDataDTO);
+            }
+            return new ResponseEntity<>(getDataDTOList,HttpStatus.OK);
+        } else
+        {
+            responseDTO.setResponseStatus(false);
+            responseDTO.setResponseMessage("No data to display");
+            return new ResponseEntity<>(responseDTO,HttpStatus.OK);
+        }
+    }
 }

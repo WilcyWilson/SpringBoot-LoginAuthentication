@@ -1,5 +1,6 @@
 package com.fonepay.loginauthentication.service;
 
+import com.fonepay.loginauthentication.dto.GetDataDTO;
 import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.dto.UserLoginDTO;
 import org.springframework.http.ResponseEntity;
@@ -14,4 +15,6 @@ import java.security.spec.InvalidKeySpecException;
 
 public interface LoginService {
     ResponseEntity<ResponseDTO> checkUser(UserLoginDTO userLoginDTO) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException;
+
+    ResponseEntity<Object> getData();
 }

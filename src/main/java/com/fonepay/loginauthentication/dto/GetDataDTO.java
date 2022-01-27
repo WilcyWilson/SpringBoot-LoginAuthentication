@@ -3,8 +3,10 @@ package com.fonepay.loginauthentication.dto;
 import lombok.Data;
 
 @Data
-public class UserLoginDTO {
+public class GetDataDTO {
+    private long id;
     private String userName;
     private String emailId;
-    private String password;
+    private String createdBy;
+    private Boolean status;
 }

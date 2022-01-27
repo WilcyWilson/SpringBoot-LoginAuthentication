@@ -75,7 +75,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             }
         } catch (Exception e) {
             responseDTO.setResponseStatus(false);
-            responseDTO.setResponseMessage("Unsuccessful Registration  " + e.getMessage());
+            responseDTO.setResponseMessage("Username already exists");
         }
             return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }

@@ -42,8 +42,8 @@ public class RegistrationController {
     private EditMetaTableService editMetaTableService;
 
     @PostMapping(PathConstants.SAVE_USER)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserRegisterDTO userDto) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
-
         return registrationService.saveUser(userDto);
     }
 
@@ -55,32 +55,44 @@ public class RegistrationController {
     }
 
     @PostMapping(PathConstants.CHECK_APPROVAL)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<ResponseDTO> checkApproval(@RequestBody ApprovalDTO approvalDTO) {
         return approvalService.approveUser(approvalDTO);
     }
 
     @PostMapping(PathConstants.EDIT_USER)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<ResponseDTO> editUser(@RequestBody EditDTO editDTO) {
         return editService.editUser(editDTO);
     }
 
     @PostMapping(PathConstants.META_TABLE)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<ResponseDTO> metaTable(@RequestBody MetaTableDTO metaTableDTO) {
         return metaTableService.insertMeta(metaTableDTO);
     }
 
     @PostMapping(PathConstants.CHECK_META)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<ResponseDTO> checkMeta(@RequestBody MetaApprovalDTO metaApprovalDTO) {
         return metaApprovalService.checkMeta(metaApprovalDTO);
     }
 
     @PostMapping(PathConstants.EDIT_META)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<ResponseDTO> editMeta(@RequestBody EditMetaTableDTO editMetaTableDTO) {
         return editMetaTableService.editMeta(editMetaTableDTO);
     }
 
+    @GetMapping(PathConstants.GET_DATA)
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<Object> getData() {
+        return loginService.getData();
+    }
+
     //    @PostConstruct
     @GetMapping(PathConstants.PROPERTIES_DEMO)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Object> appProperties() {
         return propertiesService.propertiesFileDemo();
     }

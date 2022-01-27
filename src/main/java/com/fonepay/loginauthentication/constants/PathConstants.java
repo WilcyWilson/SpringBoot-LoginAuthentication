@@ -9,4 +9,5 @@ public class PathConstants {
     public final static String PROPERTIES_DEMO = "/properties";
     public final static String CHECK_META = "/checkMeta";
     public final static String EDIT_META = "/editMeta";
+    public final static String GET_DATA = "/getData";
 }
