@@ -86,8 +86,9 @@ public class RegistrationController {
 
     @GetMapping(PathConstants.GET_DATA)
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Object> getData() {
-        return loginService.getData();
+    public ResponseEntity<Object> getData(@RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "5") int size) {
+        return loginService.getData(page,size);
     }
 
     //    @PostConstruct

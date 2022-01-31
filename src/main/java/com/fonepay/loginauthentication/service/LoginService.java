@@ -16,5 +16,5 @@ import java.security.spec.InvalidKeySpecException;
 public interface LoginService {
     ResponseEntity<ResponseDTO> checkUser(UserLoginDTO userLoginDTO) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException;
 
-    ResponseEntity<Object> getData();
+    ResponseEntity<Object> getData(int page, int size);
 }

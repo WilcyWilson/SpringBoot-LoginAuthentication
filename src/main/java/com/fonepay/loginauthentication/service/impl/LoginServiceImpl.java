@@ -7,7 +7,11 @@ import com.fonepay.loginauthentication.entity.UserLogin;
 import com.fonepay.loginauthentication.repository.LoginRepo;
 import com.fonepay.loginauthentication.service.EncryptionService;
 import com.fonepay.loginauthentication.service.LoginService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,7 +24,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -54,27 +60,37 @@ public class LoginServiceImpl implements LoginService {
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
-    public ResponseEntity<Object> getData(){
+    public ResponseEntity<Object> getData(int page, int size){
         if(loginRepository.findAll()!=null){
             List<GetDataDTO> getDataDTOList = new ArrayList<>();
-            List<UserLogin> userLoginList = loginRepository.findAll();
+
+            Pageable paging = PageRequest.of(page, size);
+            Page<UserLogin> pageGetDataDTO = loginRepository.findAll(paging);
+
+            List<UserLogin> userLoginList = pageGetDataDTO.getContent();
+
             for (UserLogin user: userLoginList){
-                    GetDataDTO getDataDTO = new GetDataDTO();
+                GetDataDTO getDataDTO = new GetDataDTO();
 
-                    getDataDTO.setUserName(user.getUserName());
-                    getDataDTO.setEmailId(user.getEmailId());
-                    getDataDTO.setId(user.getId());
-                    getDataDTO.setStatus(user.getStatus());
-                    getDataDTO.setCreatedBy(user.getCreatedBy());
+                getDataDTO.setUserName(user.getUserName());
+                getDataDTO.setEmailId(user.getEmailId());
+                getDataDTO.setId(user.getId());
+                getDataDTO.setStatus(user.getStatus());
+                getDataDTO.setCreatedBy(user.getCreatedBy());
 
-                    getDataDTOList.add(getDataDTO);
+                getDataDTOList.add(getDataDTO);
             }
-            return new ResponseEntity<>(getDataDTOList,HttpStatus.OK);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("logins", getDataDTOList);
+            response.put("currentPage", pageGetDataDTO.getNumber());
+            response.put("totalItems", pageGetDataDTO.getTotalElements());
+            response.put("totalPages", pageGetDataDTO.getTotalPages());
+
+            return new ResponseEntity<>(response,HttpStatus.OK);
         } else
         {
-            responseDTO.setResponseStatus(false);
-            responseDTO.setResponseMessage("No data to display");
-            return new ResponseEntity<>(responseDTO,HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
