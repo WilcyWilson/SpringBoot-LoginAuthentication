@@ -5,42 +5,42 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "META_TABLE")
+@Table(name = "meta_table")
 @Data
 public class MetaTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "id")
     private long id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "VALUE")
+    @Column(name = "value")
     private String value;
 
-    @Column(name = "IS_ENABLED")
+    @Column(name = "is_enabled")
     private Boolean isEnabled;
 
-    @Column(name = "CREATED_DATE")
+    @Column(name = "created_date")
     private String createdDate;
 
-    @Column(name = "CREATED_BY")
+    @Column(name = "created_by")
     private String createdBy;
 
-    @Column(name = "APPROVED_BY")
+    @Column(name = "approved_by")
     private String approvedBy;
 
-    @Column(name = "APPROVED_DATE")
+    @Column(name = "approved_date")
     private String approvedDate;
 
-    @Column(name = "EDITED_BY")
+    @Column(name = "edited_by")
     private String editedBy;
 
-    @Column(name = "EDITED_DATE")
+    @Column(name = "edited_date")
     private String editedDate;
 }

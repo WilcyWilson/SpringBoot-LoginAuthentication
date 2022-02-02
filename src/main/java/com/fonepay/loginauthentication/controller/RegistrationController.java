@@ -14,6 +14,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Map;
 
 @RestController
 public class RegistrationController {
@@ -86,9 +87,10 @@ public class RegistrationController {
 
     @GetMapping(PathConstants.GET_DATA)
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Object> getData(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Object> getData(@RequestParam Map<String, String> allRequestParams,
+                                          @RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "5") int size) {
-        return loginService.getData(page,size);
+        return loginService.getData(allRequestParams,page, size);
     }
 
     //    @PostConstruct

@@ -1,5 +1,6 @@
 package com.fonepay.loginauthentication.service.impl;
 
+import com.fonepay.loginauthentication.dao.LoginTableDAO;
 import com.fonepay.loginauthentication.dto.GetDataDTO;
 import com.fonepay.loginauthentication.dto.ResponseDTO;
 import com.fonepay.loginauthentication.dto.UserLoginDTO;
@@ -36,6 +37,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private EncryptionService encryptionService;
 
+    @Autowired
+    private LoginTableDAO loginTableDAO;
+
     private ResponseDTO responseDTO = new ResponseDTO();
 
     public ResponseEntity<ResponseDTO> checkUser(UserLoginDTO userLoginDTO) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
@@ -60,32 +64,17 @@ public class LoginServiceImpl implements LoginService {
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
-    public ResponseEntity<Object> getData(int page, int size){
+    @Override
+    public ResponseEntity<Object> getData(Map<String, String> allRequestParams,int page, int size){
         if(loginRepository.findAll()!=null){
-            List<GetDataDTO> getDataDTOList = new ArrayList<>();
-
             Pageable paging = PageRequest.of(page, size);
-            Page<UserLogin> pageGetDataDTO = loginRepository.findAll(paging);
 
-            List<UserLogin> userLoginList = pageGetDataDTO.getContent();
-
-            for (UserLogin user: userLoginList){
-                GetDataDTO getDataDTO = new GetDataDTO();
-
-                getDataDTO.setUserName(user.getUserName());
-                getDataDTO.setEmailId(user.getEmailId());
-                getDataDTO.setId(user.getId());
-                getDataDTO.setStatus(user.getStatus());
-                getDataDTO.setCreatedBy(user.getCreatedBy());
-
-                getDataDTOList.add(getDataDTO);
-            }
+            List<GetDataDTO> getDataDTOList = loginTableDAO.searchDetail(allRequestParams, paging);
+            Long count = loginTableDAO.getPaymentClientAppUserDetailsCount(allRequestParams);
 
             Map<String, Object> response = new HashMap<>();
             response.put("logins", getDataDTOList);
-            response.put("currentPage", pageGetDataDTO.getNumber());
-            response.put("totalItems", pageGetDataDTO.getTotalElements());
-            response.put("totalPages", pageGetDataDTO.getTotalPages());
+            response.put("totalItems", count);
 
             return new ResponseEntity<>(response,HttpStatus.OK);
         } else
