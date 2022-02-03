@@ -8,9 +8,7 @@ import com.fonepay.loginauthentication.entity.UserLogin;
 import com.fonepay.loginauthentication.repository.LoginRepo;
 import com.fonepay.loginauthentication.service.EncryptionService;
 import com.fonepay.loginauthentication.service.LoginService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,7 +22,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +37,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private LoginTableDAO loginTableDAO;
 
-    private ResponseDTO responseDTO = new ResponseDTO();
+    private final ResponseDTO responseDTO = new ResponseDTO();
 
-    public ResponseEntity<ResponseDTO> checkUser(UserLoginDTO userLoginDTO) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
+    public ResponseEntity<ResponseDTO> checkUser(UserLoginDTO userLoginDTO) {
         if(userLoginDTO.getUserName()!=null || !userLoginDTO.getUserName().isEmpty()){
             UserLogin userLogin=loginRepository.findByUserName(userLoginDTO.getUserName());
             if(userLogin != null) {
@@ -66,11 +63,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public ResponseEntity<Object> getData(Map<String, String> allRequestParams,int page, int size){
-        if(loginRepository.findAll()!=null){
+        if(!loginRepository.findAll().isEmpty()){
             Pageable paging = PageRequest.of(page, size);
 
             List<GetDataDTO> getDataDTOList = loginTableDAO.searchDetail(allRequestParams, paging);
-            Long count = loginTableDAO.getPaymentClientAppUserDetailsCount(allRequestParams);
+            Long count = loginTableDAO.countDetail(allRequestParams);
 
             Map<String, Object> response = new HashMap<>();
             response.put("logins", getDataDTOList);

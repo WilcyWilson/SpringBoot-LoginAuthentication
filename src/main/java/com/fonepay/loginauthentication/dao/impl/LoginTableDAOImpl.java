@@ -56,7 +56,7 @@ public class LoginTableDAOImpl implements LoginTableDAO {
     }
 
     @Override
-    public Long getPaymentClientAppUserDetailsCount(Map<String, String> allRequestParams) {
+    public Long countDetail(Map<String, String> allRequestParams) {
         try {
             String queryString = "SELECT"
                     + " count(lt.login_id) AS totalCount"

@@ -9,5 +9,5 @@ import java.util.Map;
 
 public interface LoginTableDAO {
     List<GetDataDTO> searchDetail(Map<String,String> allRequestParams, Pageable pageable);
-    Long getPaymentClientAppUserDetailsCount(Map<String, String> allRequestParams);
+    Long countDetail(Map<String, String> allRequestParams);
 }

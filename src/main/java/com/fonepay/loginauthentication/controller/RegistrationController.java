@@ -1,5 +1,6 @@
 package com.fonepay.loginauthentication.controller;
 
+import com.fonepay.loginauthentication.constants.PaginationConstants;
 import com.fonepay.loginauthentication.constants.PathConstants;
 import com.fonepay.loginauthentication.dto.*;
 import com.fonepay.loginauthentication.service.*;
@@ -88,9 +89,9 @@ public class RegistrationController {
     @GetMapping(PathConstants.GET_DATA)
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Object> getData(@RequestParam Map<String, String> allRequestParams,
-                                          @RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "5") int size) {
-        return loginService.getData(allRequestParams,page, size);
+                                          @RequestParam(defaultValue = PaginationConstants.CURRENT_PAGE) int page,
+                                          @RequestParam(defaultValue = PaginationConstants.PAGE_SIZE) int size) {
+        return loginService.getData(allRequestParams, page, size);
     }
 
     //    @PostConstruct
