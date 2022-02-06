@@ -29,6 +29,9 @@ public class RegistrationController {
     private ApprovalService approvalService;
 
     @Autowired
+    private BlockService blockService;
+
+    @Autowired
     private EditService editService;
 
     @Autowired
@@ -60,6 +63,12 @@ public class RegistrationController {
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<ResponseDTO> checkApproval(@RequestBody ApprovalDTO approvalDTO) {
         return approvalService.approveUser(approvalDTO);
+    }
+
+    @PostMapping(PathConstants.BLOCK_APPROVAL)
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<ResponseDTO> blockApproval(@RequestBody ApprovalDTO approvalDTO) {
+        return blockService.approveUser(approvalDTO);
     }
 
     @PostMapping(PathConstants.EDIT_USER)

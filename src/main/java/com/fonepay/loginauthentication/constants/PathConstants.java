@@ -4,6 +4,7 @@ public class PathConstants {
     public final static String SAVE_USER = "/registerUser";
     public final static String CHECK_USER = "/checkUser";
     public final static String CHECK_APPROVAL = "/checkApproval";
+    public final static String BLOCK_APPROVAL = "/blockApproval";
     public final static String EDIT_USER = "/editUser";
     public final static String META_TABLE = "/registerMeta";
     public final static String PROPERTIES_DEMO = "/properties";
